@@ -4,7 +4,9 @@
   "description": "RESTful blogging platform API built with Node.js and Express.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node --env-file .env --watch src/index.ts",
+    "start": "node --env-file .env dist/index.js",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -19,11 +21,13 @@
   },
   "homepage": "https://github.com/FK78/blg#readme",
   "dependencies": {
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "pg": "^8.22.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
     "@types/node": "^26.1.1",
+    "@types/pg": "^8.20.0",
     "typescript": "^6.0.3"
   }
 }
