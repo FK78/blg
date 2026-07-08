@@ -27,3 +27,10 @@ export const deletePost = (id: string) => {
     [id],
   );
 };
+
+export const getPost = (id: string) => {
+  return pool.query(
+    "SELECT * FROM posts WHERE id = $1",
+    [id],
+  );
+};
