@@ -20,3 +20,10 @@ export const updatePost = (id: string, { title, content, category, tags }: Post)
     [title, content, category, tags, id],
   );
 };
+
+export const deletePost = (id: string) => {
+  return pool.query(
+    "DELETE FROM posts WHERE id = $1",
+    [id],
+  );
+};
