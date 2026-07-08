@@ -13,3 +13,10 @@ export const createPost = ({ title, content, category, tags }: Post) => {
     [title, content, category, tags],
   );
 };
+
+export const updatePost = (id: string, { title, content, category, tags }: Post) => {
+  return pool.query(
+    "UPDATE posts SET title = $1, content = $2, category = $3, tags = $4, updated_at = NOW() WHERE id = $5 RETURNING *",
+    [title, content, category, tags, id],
+  );
+};

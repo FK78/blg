@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
-import { createPost } from "../queries/postQueries.ts";
+import { createPost, updatePost } from "../queries/postQueries.ts";
 
-export async function postCreate(req: Request, res: Response) {
+export const postCreate = async (req: Request, res: Response) => {
   try {
     const response = await createPost(req.body);
     res.status(201).json(response.rows[0]);
@@ -9,4 +9,15 @@ export async function postCreate(req: Request, res: Response) {
     console.error(`Failed to create a post ${err}`);
     res.status(500).json({ error: "Failed to create post" });
   }
-}
+};
+
+export const postUpdate = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id as string;
+    const response = await updatePost(id, req.body);
+    res.status(200).json(response.rows[0]);
+  } catch (err) {
+    console.error(`Failed to create a post ${err}`);
+    res.status(500).json({ error: "Failed to create post" });
+  }
+};
