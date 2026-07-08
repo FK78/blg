@@ -33,9 +33,9 @@ export const getPost = (id: string) => {
 };
 
 export const getPosts = () => {
-  return pool.query("SELECT * FROM posts");
+  return pool.query("SELECT * FROM posts ORDER BY createdAt DESC");
 };
 
 export const getPostsByQuery = (query: string) => {
-  return pool.query("SELECT * FROM posts WHERE title ILIKE $1 OR content ILIKE $1 or category ILIKE $1", [query]);
+  return pool.query("SELECT * FROM posts WHERE title ILIKE $1 OR content ILIKE $1 or category ILIKE $1 ORDER BY createdAt DESC", [query]);
 };

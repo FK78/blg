@@ -58,15 +58,15 @@ export const postGet = async (req: Request, res: Response) => {
     }
     res.status(200).json(response.rows[0]);
   } catch (err) {
-    console.error(`Post not found ${err}`);
-    res.status(404).json({ error: "Post not found" });
+    console.error(`Database error: ${err}`);
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 
 export const postsGet = async (req: Request, res: Response) => {
   try {
     const term = req.query.term as string;
-    if (term != undefined) {
+    if (term != undefined && term.trim() !== "") {
       const response = await getPostsByQuery(`%${term}%`);
       res.status(200).json(response.rows);
     } else {
@@ -74,7 +74,7 @@ export const postsGet = async (req: Request, res: Response) => {
       res.status(200).json(response.rows);
     }
   } catch (err) {
-    console.error(`Post not found ${err}`);
-    res.status(500).json({ error: "Post not found" });
+    console.error(`Database error: ${err}`);
+    res.status(500).json({ error: "Internal server error" });
   }
 };
