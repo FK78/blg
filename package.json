@@ -1,0 +1,29 @@
+{
+  "name": "blg",
+  "version": "1.0.0",
+  "description": "RESTful blogging platform API built with Node.js and Express.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FK78/blg.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/FK78/blg/issues"
+  },
+  "homepage": "https://github.com/FK78/blg#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.1.1",
+    "typescript": "^6.0.3"
+  }
+}

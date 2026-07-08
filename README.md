@@ -22,7 +22,7 @@ Because every developer needs a blog they'll never actually update. At least thi
 
 - **Node.js** + **Express** - because it's fast to write and faster to break
 - **SQLite** / **PostgreSQL** - TBD (data has to live somewhere)
-- No frontend — that's a different kind of suffering
+- No frontend - that's a different kind of suffering
 
 ## Endpoints
 
