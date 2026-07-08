@@ -3,7 +3,7 @@ import { pool } from "./db/db.ts";
 import postsRouter from "./routes/postsRouter.ts";
 
 const app = express();
-const port = process.env.PORT ?? "3000";
+const port = process.env.BLG_PORT ?? "3000";
 
 app.use(express.json());
 
