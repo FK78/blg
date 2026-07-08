@@ -1,10 +1,13 @@
 import express from "express"
 import { pool } from "./db/db.ts";
+import postsRouter from "./routes/postsRouter.ts"
 
 const app = express()
 const port = process.env.PORT ?? "3000";
 
 app.use(express.json())
+
+app.use("/posts", postsRouter)
 
 try {
     await pool.query("SELECT 1")
