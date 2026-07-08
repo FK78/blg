@@ -20,8 +20,9 @@ Because every developer needs a blog they'll never actually update. At least thi
 
 ## Tech Stack
 
-- **Node.js** + **Express** - because it's fast to write and faster to break
-- **SQLite** / **PostgreSQL** - TBD (data has to live somewhere)
+- **Node.js** + **Express 5** + **TypeScript** - type safety and modern JS
+- **PostgreSQL** - the real deal, running in Docker
+- **pg** - raw SQL, no ORM training wheels
 - No frontend - that's a different kind of suffering
 
 ## Endpoints
@@ -58,6 +59,7 @@ Because every developer needs a blog they'll never actually update. At least thi
 | `204` | Deleted. Gone. Poof. |
 | `400` | You sent garbage. Try again. |
 | `404` | Doesn't exist. Never did. (Maybe.) |
+| `500` | Something broke. Not your fault. (Probably.) |
 
 ## Getting Started
 
@@ -65,30 +67,65 @@ Because every developer needs a blog they'll never actually update. At least thi
 git clone https://github.com/FK78/blg.git
 cd blg
 npm install
-npm start
+```
+
+Set up your environment:
+
+```bash
+cp .env.example .env
+# Fill in your Postgres credentials
+```
+
+Start the database:
+
+```bash
+docker compose up -d
+```
+
+Create the posts table (connect to Postgres and run):
+
+```sql
+CREATE TABLE posts (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    title TEXT NOT NULL,
+    content TEXT NOT NULL,
+    category TEXT,
+    tags TEXT[],
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+```
+
+Start the server:
+
+```bash
+npm run dev
 ```
 
 ## Project Structure
 
 ```
 blg/
-├── index.js           # Server entry point
-├── routes/
-│   └── posts.js       # All the post endpoints
-├── controllers/
-│   └── posts.js       # Business logic lives here
-├── models/
-│   └── post.js        # Database interactions
-├── middleware/
-│   └── validate.js    # Input validation
-└── db/
-    └── setup.js       # Database connection and schema
+├── src/
+│   ├── index.ts              # Server entry point
+│   ├── routes/
+│   │   └── postsRouter.ts    # Route definitions
+│   ├── controllers/
+│   │   └── postsController.ts # Request handling
+│   ├── queries/
+│   │   └── postQueries.ts    # Raw SQL queries
+│   ├── middleware/
+│   │   └── validate.ts       # Input validation
+│   └── db/
+│       └── db.ts             # Database connection pool
+├── compose.yml               # Docker Compose for Postgres
+└── tsconfig.json
 ```
 
 ## Requirements
 
 - Node.js 18+
-- A database (SQLite for dev, Postgres if you're feeling fancy)
+- Docker (for PostgreSQL)
 - Opinions about REST conventions (optional but inevitable)
 
 ## Credit

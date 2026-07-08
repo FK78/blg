@@ -9,7 +9,7 @@ type Post = {
 
 export const createPost = ({ title, content, category, tags }: Post) => {
   return pool.query(
-    "INSERT INTO posts(title, content, category, tags) VALUES ($1, $2, $3, $4) RETURNING *",
+    'INSERT INTO posts(title, content, category, tags) VALUES ($1, $2, $3, $4) RETURNING id, title, content, category, tags, updated_at AS "updatedAt", created_at AS "createdAt"',
     [title, content, category, tags],
   );
 };
@@ -19,7 +19,7 @@ export const updatePost = (
   { title, content, category, tags }: Post,
 ) => {
   return pool.query(
-    "UPDATE posts SET title = $1, content = $2, category = $3, tags = $4, updated_at = NOW() WHERE id = $5 RETURNING *",
+    'UPDATE posts SET title = $1, content = $2, category = $3, tags = $4, updated_at = NOW() WHERE id = $5 RETURNING id, title, content, category, tags, updated_at AS "updatedAt", created_at AS "createdAt"',
     [title, content, category, tags, id],
   );
 };
@@ -29,13 +29,19 @@ export const deletePost = (id: string) => {
 };
 
 export const getPost = (id: string) => {
-  return pool.query("SELECT * FROM posts WHERE id = $1", [id]);
+  return pool.query(
+    'SELECT id, title, content, category, tags, updated_at AS "updatedAt", created_at AS "createdAt" FROM posts WHERE id = $1',
+    [id],
+  );
 };
 
 export const getPosts = () => {
-  return pool.query("SELECT * FROM posts ORDER BY created_at DESC");
+  return pool.query('SELECT id, title, content, category, tags, updated_at AS "updatedAt", created_at AS "createdAt" FROM posts ORDER BY created_at DESC');
 };
 
 export const getPostsByQuery = (query: string) => {
-  return pool.query("SELECT * FROM posts WHERE title ILIKE $1 OR content ILIKE $1 or category ILIKE $1 ORDER BY created_at DESC", [query]);
+  return pool.query(
+    'SELECT id, title, content, category, tags, updated_at AS "updatedAt", created_at AS "createdAt" FROM posts WHERE title ILIKE $1 OR content ILIKE $1 or category ILIKE $1 ORDER BY created_at DESC',
+    [query],
+  );
 };
