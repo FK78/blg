@@ -5,9 +5,9 @@ import { validate } from "../middleware/validate.ts"
 const router = express.Router()
 
 router.post('/', validate(["title", "content"]), postCreate)
-router.put('/:id', validate(["id", "title", "content"]), postUpdate)
-router.delete('/:id', validate(["id", "title", "content"]), postDelete)
-router.get('/:id', validate(["id"]), postGet)
+router.put('/:id', validate(["title", "content"]), postUpdate)
+router.delete('/:id', postDelete)
+router.get('/:id', postGet)
 router.get('/', postsGet)
 
 export default router

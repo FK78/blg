@@ -35,3 +35,7 @@ export const getPost = (id: string) => {
 export const getPosts = () => {
   return pool.query("SELECT * FROM posts");
 };
+
+export const getPostsByQuery = (query: string) => {
+  return pool.query("SELECT * FROM posts WHERE title ILIKE $1 OR content ILIKE $1 or category ILIKE $1", [query]);
+};
